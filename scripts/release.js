@@ -256,17 +256,26 @@ async function main() {
                         sections.push(isId ? '### 📚 Dokumentasi' : '### 📚 Documentation');
                         categorized.docs.forEach(m => sections.push(`* ${m}`));
                     }
+                    if (categorized && categorized.chore && categorized.chore.length > 0) {
+                        sections.push(isId ? '### 🔧 Tugas & Pemeliharaan' : '### 🔧 Tasks & Chores');
+                        categorized.chore.forEach(m => sections.push(`* ${m}`));
+                    }
                     if (categorized && categorized.other && categorized.other.length > 0) {
-                        sections.push(isId ? '### 🔧 Lainnya' : '### 🔧 Others');
+                        sections.push(isId ? '### � Lainnya' : '### � Others');
                         categorized.other.forEach(m => sections.push(`* ${m}`));
                     }
                     
                     // Fallback
                     if (sections.length === 0) {
-                        return isId ? '* Pemeliharaan rutin dan pembaruan dependensi.' : '* Routine maintenance and dependency updates.';
+                        if (raw && raw.length > 0) {
+                            sections.push(isId ? '### 📋 Daftar Perubahan' : '### 📋 Changelog');
+                            raw.forEach(m => sections.push(`* ${m}`));
+                        } else {
+                            return isId ? '* Pemeliharaan rutin dan pembaruan dependensi.' : '* Routine maintenance and dependency updates.';
+                        }
                     }
                     
-                    return sections.join('\n');
+                    return sections.join('\n\n');
                 };
 
                 if (parsedID) {
@@ -277,7 +286,15 @@ async function main() {
                     featureListID = parsedID.features; 
                 } else {
                     console.log('⚠️ No entry in doc/id/CHANGELOG.md, using git logs...');
-                    titleID = (categorized && categorized.feat && categorized.feat.length > 0) ? 'Fitur Baru & Peningkatan' : 'Rilis Pemeliharaan';
+                    
+                    if (categorized && categorized.feat && categorized.feat.length > 0) {
+                        titleID = 'Fitur Baru & Peningkatan';
+                    } else if (categorized && categorized.fix && categorized.fix.length > 0) {
+                        titleID = 'Perbaikan Bug & Peningkatan Stabilitas';
+                    } else {
+                        titleID = 'Rilis Pemeliharaan & Update Rutin';
+                    }
+
                     descriptionID = (categorized && categorized.feat && categorized.feat.length > 0) 
                         ? `Menghadirkan: ${categorized.feat.slice(0, 2).map(f => f.replace(/^feat: ?/i, '')).join(', ')}` 
                         : 'Pembaruan rutin dan perbaikan bug.';
@@ -293,7 +310,15 @@ async function main() {
                     featureListEN = parsedEN.features;
                 } else {
                     console.log('⚠️ No entry in doc/en/CHANGELOG.md, using git logs...');
-                    titleEN = (categorized && categorized.feat && categorized.feat.length > 0) ? 'New Features & Improvements' : 'Maintenance Release';
+                    
+                    if (categorized && categorized.feat && categorized.feat.length > 0) {
+                        titleEN = 'New Features & Improvements';
+                    } else if (categorized && categorized.fix && categorized.fix.length > 0) {
+                        titleEN = 'Bug Fixes & Stability Improvements';
+                    } else {
+                        titleEN = 'Maintenance Release & Routine Updates';
+                    }
+
                     descriptionEN = (categorized && categorized.feat && categorized.feat.length > 0) 
                         ? `Featuring: ${categorized.feat.slice(0, 2).map(f => f.replace(/^feat: ?/i, '')).join(', ')}` 
                         : 'Routine maintenance and bug fixes.';
