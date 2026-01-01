@@ -199,3 +199,5 @@ Mulai dari rilis v3.0.0, semua versi sebelumnya (v1.x dan v2.x) dianggap **DEPRE
 - **Type Safety**: Semua perubahan telah diverifikasi dengan `npm run typecheck`.
 
 ---
+
+- Alat CLI untuk pengembangan cepat.

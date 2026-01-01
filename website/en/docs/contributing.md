@@ -18,13 +18,12 @@ Pastikan Anda sudah menginstal:
 
 ### 2. Fork & Clone Repository
 
-    git clone https://github.com/USERNAME_ANDA/lapeeh.git
-    cd lapeeh
+1.  **Fork** repository ini ke akun GitHub Anda (tombol "Fork" di pojok kanan atas).
+2.  **Clone** hasil fork ke komputer lokal Anda:
     ```bash
     git clone https://github.com/USERNAME_ANDA/lapeeh.git
     cd lapeeh
-    git remote add upstream https://github.com/robyajo/lapeeh.git
-
+    ```
 3.  **Tambahkan Remote Upstream** (agar bisa sinkron dengan repo asli):
     ```bash
     git remote add upstream https://github.com/robyajo/lapeeh.git

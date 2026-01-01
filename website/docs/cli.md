@@ -1,10 +1,10 @@
 # CLI Tools & Scripts
 
-Lapeeh Framework dilengkapi dengan berbagai script CLI untuk mempercepat proses development, mulai dari generate code hingga manajemen database.
+lapeeh Framework dilengkapi dengan berbagai script CLI untuk mempercepat proses development, mulai dari generate code hingga manajemen database.
 
 Semua perintah dijalankan menggunakan `npm run <command>`.
 
-> **Info:** Di balik layar, script `npm run` ini memanggil CLI internal framework (`lapeeh`). Anda juga bisa menjalankan perintah ini secara langsung menggunakan `npx @lapeeh/lapeeh <command>`.
+> **Info:** Di balik layar, script `npm run` ini memanggil CLI internal framework (`lapeeh`). Anda juga bisa menjalankan perintah ini secara langsung menggunakan `npx lapeeh <command>`.
 
 ## Core Commands
 

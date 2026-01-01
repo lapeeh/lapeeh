@@ -199,3 +199,5 @@ Starting from release v3.0.0, all previous versions (v1.x and v2.x) are consider
 - **Type Safety**: Semua perubahan telah diverifikasi dengan `npm run typecheck`.
 
 ---
+
+- CLI Tools for rapid development.

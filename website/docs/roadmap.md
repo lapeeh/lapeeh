@@ -10,9 +10,10 @@ Ini adalah **Undangan Terbuka** bagi para kontributor! Jika Anda tertarik menger
 
 ### 1. Dependency Injection (DI) Container
 
-- **Tujuan**: Membuat kode lebih testable dan modular.
 - **Konsep**: Saat ini lapeeh menggunakan pendekatan import langsung. Implementasi DI sederhana (seperti `InversifyJS` atau custom container) akan memudahkan unit testing dan decoupling.
-- **Inspirasi**: NestJS Providers, Angular DI.
+
+* **Konsep**: Saat ini Lapeeh menggunakan pendekatan import langsung. Implementasi DI sederhana (seperti `InversifyJS` atau custom container) akan memudahkan unit testing dan decoupling.
+* **Inspirasi**: NestJS Providers, Angular DI.
 
 ### 2. Event Emitter (Pub/Sub)
 
@@ -85,8 +86,10 @@ Ini adalah **Undangan Terbuka** bagi para kontributor! Jika Anda tertarik menger
 
 ### 10. API Versioning
 
-- **Tujuan**: Mendukung multiple versi API (v1, v2) tanpa merusak klien lama.
-- **Rencana**: Routing strategy berbasis URL prefix (`/api/v1/...`) atau Header.
+- **Ide**: Saat menjalankan `npx lapeeh`, muncul menu interaktif untuk memilih fitur yang mau diinstall (pilih DB, pilih mau pakai Redis atau tidak, dll).
+
+* **Tujuan**: Mendukung multiple versi API (v1, v2) tanpa merusak klien lama.
+* **Rencana**: Routing strategy berbasis URL prefix (`/api/v1/...`) atau Header.
 
 ---
 
@@ -95,7 +98,7 @@ Ini adalah **Undangan Terbuka** bagi para kontributor! Jika Anda tertarik menger
 ### 11. Interactive CLI (TUI)
 
 - **Tujuan**: Membuat CLI lebih user friendly.
-- **Ide**: Saat menjalankan `npx lapeeh`, muncul menu interaktif untuk memilih fitur yang mau diinstall (pilih DB, pilih mau pakai Redis atau tidak, dll).
+- **Ide**: Saat menjalankan `npx @lapeeh/lapeeh`, muncul menu interaktif untuk memilih fitur yang mau diinstall (pilih DB, pilih mau pakai Redis atau tidak, dll).
 
 ---
 

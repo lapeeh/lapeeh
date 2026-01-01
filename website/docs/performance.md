@@ -50,15 +50,17 @@ export async function getUsers(req: Request, res: Response) {
 
 ---
 
-## 2. Horizontal Scaling (Load Balancer & Cluster)
-
 lapeeh dirancang untuk siap di-scale secara horizontal (menambah jumlah server, bukan memperbesar spesifikasi server).
 
-### Arsitektur Cluster
+## 2. Horizontal Scaling (Load Balancer & Cluster)
+
+Lapeeh dirancang untuk siap di-scale secara horizontal (menambah jumlah server, bukan memperbesar spesifikasi server).
+
+- **App Instances**: Beberapa instance aplikasi lapeeh yang berjalan paralel.
 
 - **Nginx**: Bertindak sebagai Load Balancer yang membagi trafik ke server-server aplikasi.
 - **Redis**: Menyimpan Session, Rate Limit, dan Cache agar bisa diakses oleh semua server (Shared State).
-- **App Instances**: Beberapa instance aplikasi lapeeh yang berjalan paralel.
+- **App Instances**: Beberapa instance aplikasi Lapeeh yang berjalan paralel.
 
 ### Cara Menjalankan Cluster (Docker)
 
