@@ -50,7 +50,7 @@ E. Lakukan testing (Folder pengujian local dan npm) dan pengujian framework sele
 5. commit ke github
 6. perbahrui juga doc id dan en
 
-D. Setelah semua di lakukan lakukan pengujian sebagai user ( lakukan semua itu dalam folder pengjujian) pastikan semua berjalan lancar
+D. Setelah semua di lakukan lakukan pengujian sebagai user ( lakukan semua itu dalam folder pengujian) pastikan semua berjalan lancar
  1. npx lapeeh@latest nama-project-anda
  2. npx lapeeh@latest nama-project-anda --full
  3. npx lapeeh@latest nama-project-anda --default

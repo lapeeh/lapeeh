@@ -765,12 +765,12 @@ function createProject(skipFirstArg = false) {
   (async () => {
     // Animation lapeeh "L A P E H"
     const frames = [
-      "██╗      █████╗ ██████╗ ███████╗██╗  ██╗",
-      "██║     ██╔══██╗██╔══██╗██╔════╝██║  ██║",
-      "██║     ███████║██████╔╝█████╗  ███████║",
-      "██║     ██╔══██║██╔═══╝ ██╔══╝  ██╔══██║",
-      "███████╗██║  ██║██║     ███████╗██║  ██║",
-      "╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝"
+      "██╗      █████╗ ██████╗ ███████╗███████╗██╗  ██╗",
+      "██║     ██╔══██╗██╔══██╗██╔════╝██╔════╝██║  ██║",
+      "██║     ███████║██████╔╝█████╗  █████╗  ███████║",
+      "██║     ██╔══██║██╔═══╝ ██╔══╝  ██╔══╝  ██╔══██║",
+      "███████╗██║  ██║██║     ███████╗███████╗██║  ██║",
+      "╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝  ╚═╝"
     ];
 
     console.clear();
@@ -779,7 +779,7 @@ function createProject(skipFirstArg = false) {
         await new Promise(r => setTimeout(r, 100));
         console.log(`\x1b[36m   ${frames[i]}\x1b[0m`);
     }
-    console.log('\n\x1b[36m   L A P E H   F R A M E W O R K\x1b[0m\n');
+    console.log('\n\x1b[36m   L A P E E H   F R A M E W O R K\x1b[0m\n');
     await new Promise(r => setTimeout(r, 800));
 
     console.log(`🚀 Creating a new API lapeeh project in ${projectDir}...`);
@@ -875,12 +875,12 @@ function createProject(skipFirstArg = false) {
         if (!tsconfig.compilerOptions) tsconfig.compilerOptions = {};
         if (!tsconfig.compilerOptions.paths) tsconfig.compilerOptions.paths = {};
         
-        // Ensure @lapeeh/* points to the installed package
-        tsconfig.compilerOptions.paths["@lapeeh/*"] = ["./node_modules/@lapeeh/lapeeh/dist/lib/*"];
+        // Ensure lapeeh/* points to the installed package
+        tsconfig.compilerOptions.paths["lapeeh/*"] = ["./node_modules/lapeeh/dist/lib/*"];
         
         // Add ts-node configuration to allow compiling lapeeh in node_modules
         tsconfig["ts-node"] = {
-          "ignore": ["node_modules/(?!@lapeeh)"]
+          "ignore": ["node_modules/(?!lapeeh)"]
         };
         
         fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
