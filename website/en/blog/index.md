@@ -4,6 +4,16 @@ Updates on lapeeh Framework development, tutorials, and tips & tricks.
 
 ---
 
+## 🚀 [Release v1.0.1: frist commit](./release-v1.0.1)
+
+_January 1, 2026_ • 👤 lapeeh Team • 🏷️ _Release_
+
+Includes: frist commit [Read more →](./release-v1.0.1)
+
+---
+
+---
+
 ## 🚀 [Release v3.0.14: Maintenance Release](./release-v3.0.14)
 
 _December 31, 2025_ • 👤 lapeeh Team • 🏷️ _Release_

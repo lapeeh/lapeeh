@@ -5,9 +5,9 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@lapeeh/core/database$': '<rootDir>/tests/mocks/database.ts',
+    '^lapeeh/core/database$': '<rootDir>/tests/mocks/database.ts',
     '.*core/database$': '<rootDir>/tests/mocks/database.ts',
-    '^@lapeeh/(.*)$': '<rootDir>/lib/$1',
+    '^lapeeh/(.*)$': '<rootDir>/lib/$1',
     '^uuid$': '<rootDir>/tests/mocks/uuid.ts',
   },
   transformIgnorePatterns: ['node_modules/(?!(uuid)/)'],

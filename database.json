@@ -2,38 +2,21 @@
   "users": [
     {
       "id": "1",
-      "uuid": "0a928776-5efd-4207-8f76-0ab8f86b6ca8",
-      "name": "Super Admin",
-      "email": "sa@sa.com",
-      "password": "$2b$10$1/oSe4Ca1P3eoQw98LJGdOrHgjFfT/85UVHAuZ5TzIADOr0Vs1sU6",
-      "created_at": "2025-12-30T16:07:25.057Z",
-      "updated_at": "2025-12-30T16:07:25.057Z",
-      "avatar": null,
-      "avatar_url": null,
-      "email_verified_at": null,
-      "remember_token": null
+      "name": "Admin User",
+      "email": "admin@lapeeh.com",
+      "password": "$2a$10$B0yDIL9ksY3fHkFBrC3LOOYK1qnkWU4k3WMiInf8K0pdHw5U1VVty",
+      "uuid": "uuid-admin",
+      "created_at": "2026-01-01T09:49:59.144Z",
+      "updated_at": "2026-01-01T09:49:59.144Z"
     },
     {
       "id": "2",
-      "uuid": "b406d696-d578-4a49-a86e-359da011abde",
-      "name": "Admin User",
-      "email": "a@a.com",
-      "password": "$2b$10$1/oSe4Ca1P3eoQw98LJGdOrHgjFfT/85UVHAuZ5TzIADOr0Vs1sU6",
-      "created_at": "2025-12-30T16:07:25.058Z",
-      "updated_at": "2025-12-30T16:07:25.058Z",
-      "avatar": null,
-      "avatar_url": null,
-      "email_verified_at": null,
-      "remember_token": null
-    },
-    {
-      "id": "3",
-      "uuid": "05223b20-7aad-4c23-ab84-8e3e60132f66",
-      "name": "Regular User",
-      "email": "u@u.com",
-      "password": "$2b$10$1/oSe4Ca1P3eoQw98LJGdOrHgjFfT/85UVHAuZ5TzIADOr0Vs1sU6",
-      "created_at": "2025-12-30T16:07:25.058Z",
-      "updated_at": "2025-12-30T16:07:25.058Z",
+      "email": "newuser@example.com",
+      "name": "New User",
+      "password": "$2a$10$hfymCFfTwcsr3XB9jEVUMO5bi7s7EILITe3XrB9JzLTuT7Z0xcJjm",
+      "uuid": "00000000-0000-0000-0000-000000000000",
+      "created_at": "2026-01-01T09:49:59.635Z",
+      "updated_at": "2026-01-01T09:49:59.635Z",
       "avatar": null,
       "avatar_url": null,
       "email_verified_at": null,
@@ -150,6 +133,12 @@
       "user_id": "3",
       "role_id": "3",
       "created_at": "2025-12-30T16:07:25.058Z"
+    },
+    {
+      "id": "4",
+      "user_id": "2",
+      "role_id": "3",
+      "created_at": "2026-01-01T09:49:59.635Z"
     }
   ],
   "role_permissions": [

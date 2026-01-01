@@ -243,7 +243,7 @@ async function checkUpdate() {
             console.log('\n');
             console.log('\x1b[33m┌────────────────────────────────────────────────────────────┐\x1b[0m');
             console.log(`\x1b[33m│\x1b[0m  \x1b[1mUpdate available!\x1b[0m \x1b[31m${currentVersion}\x1b[0m → \x1b[32m${latestVersion}\x1b[0m                           \x1b[33m│\x1b[0m`);
-            console.log(`\x1b[33m│\x1b[0m  Run \x1b[36mnpm install @lapeeh/lapeeh@latest\x1b[0m to update                  \x1b[33m│\x1b[0m`);
+            console.log(`\x1b[33m│\x1b[0m  Run \x1b[36mnpm install lapeeh@latest\x1b[0m to update                  \x1b[33m│\x1b[0m`);
             console.log(`\x1b[33m│\x1b[0m  Then run \x1b[36mnpx lapeeh upgrade\x1b[0m to sync files               \x1b[33m│\x1b[0m`);
             console.log('\x1b[33m└────────────────────────────────────────────────────────────┘\x1b[0m');
             console.log('\n');
@@ -321,7 +321,7 @@ async function runStart() {
   const possiblePaths = [
       path.join(__dirname, '../lib/bootstrap.js'),
       path.join(__dirname, '../dist/lib/bootstrap.js'),
-      path.join(process.cwd(), 'node_modules/@lapeeh/lapeeh/lib/bootstrap.js')
+      path.join(process.cwd(), 'node_modules/lapeeh/lib/bootstrap.js')
   ];
   
   bootstrapPath = possiblePaths.find(p => fs.existsSync(p));
@@ -580,10 +580,10 @@ async function upgradeProject() {
   if (fs.existsSync(tsconfigPath)) {
     const tsconfig = require(tsconfigPath);
     if (tsconfig.compilerOptions && tsconfig.compilerOptions.paths) {
-      tsconfig.compilerOptions.paths["@lapeeh/*"] = ["./node_modules/@lapeeh/lapeeh/dist/lib/*"];
+      tsconfig.compilerOptions.paths["lapeeh/*"] = ["./node_modules/lapeeh/dist/lib/*"];
     }
     tsconfig["ts-node"] = {
-      "ignore": ["node_modules/(?!@lapeeh)"]
+      "ignore": ["node_modules/(?!lapeeh)"]
     };
     fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
   }
@@ -786,7 +786,7 @@ function createProject(skipFirstArg = false) {
     fs.mkdirSync(projectDir);
 
     const ignoreList = [
-      'node_modules', 'dist', '.git', '.env', 'bin', 'scripts',
+      'node_modules', 'dist', '.git', '.env', 'bin', 'scripts', 'lib',
       'package-lock.json', '.DS_Store', 'prisma', 'website', 
       'init', 'test-local-run', 'coverage', 'doc', projectName
     ];

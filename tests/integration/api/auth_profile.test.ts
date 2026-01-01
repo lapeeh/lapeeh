@@ -6,7 +6,7 @@ import { users, roles, user_roles } from "../../../lib/core/store";
 import bcrypt from "bcryptjs";
 
 // Mock auth middleware to bypass authentication for protected routes
-jest.mock("@lapeeh/middleware/auth", () => ({
+jest.mock("lapeeh/middleware/auth", () => ({
   requireAuth: (req: any, _res: any, next: any) => {
     // Simulate authenticated user (Admin ID from store.ts)
     req.user = { userId: "1", role: "admin" };

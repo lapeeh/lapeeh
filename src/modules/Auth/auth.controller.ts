@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
-import { sendError, sendFastSuccess } from "@lapeeh/utils/response";
-import { Validator } from "@lapeeh/utils/validator";
-import { getSerializer, createResponseSchema } from "@lapeeh/core/serializer";
-import { users, roles, user_roles, saveStore } from "@lapeeh/core/store";
-import { redis } from "@lapeeh/core/redis";
+import { sendError, sendFastSuccess } from "lapeeh/utils/response";
+import { Validator } from "lapeeh/utils/validator";
+import { getSerializer, createResponseSchema } from "lapeeh/core/serializer";
+import { users, roles, user_roles, saveStore } from "lapeeh/core/store";
+import { redis } from "lapeeh/core/redis";
 
 export const ACCESS_TOKEN_EXPIRES_IN_SECONDS = 7 * 24 * 60 * 60;
 

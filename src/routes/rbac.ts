@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAdmin, requireAuth } from "@lapeeh/middleware/auth";
+import { requireAdmin, requireAuth } from "lapeeh/middleware/auth";
 import {
   createRole,
   listRoles,

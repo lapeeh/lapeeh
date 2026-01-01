@@ -1,7 +1,7 @@
 import request from "supertest";
 import { createApp } from "../../../lib/bootstrap";
 import { Express } from "express";
-import { users, roles } from "@lapeeh/core/store";
+import { users, roles } from "lapeeh/core/store";
 import bcrypt from "bcryptjs";
 
 describe("Auth API Integration", () => {

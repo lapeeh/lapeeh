@@ -25,7 +25,7 @@ fs.mkdirSync(moduleDir, { recursive: true });
 
 // Controller
 const controllerContent = `import { Request, Response } from "express";
-import { sendSuccess } from "@lapeeh/utils/response";
+import { sendSuccess } from "lapeeh/utils/response";
 // import * as ${name}Service from "./${lowerName}.service";
 
 export async function index(_req: Request, res: Response) {

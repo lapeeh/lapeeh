@@ -18,9 +18,9 @@ import { sendSuccess } from "./utils/response";
 
 export async function createApp() {
   // Register aliases for production runtime
-  // Since user code (compiled JS) uses require('@lapeeh/...')
-  // We map '@lapeeh' to the directory containing this file (lib/ or dist/lib/)
-  moduleAlias.addAlias("@lapeeh", __dirname);
+  // Since user code (compiled JS) uses require('lapeeh/...')
+  // We map 'lapeeh' to the directory containing this file (lib/ or dist/lib/)
+  moduleAlias.addAlias("lapeeh", __dirname);
 
   // Register alias for src directory (@/) to support imports in controllers/routes
   const isProduction = process.env.NODE_ENV === "production";

@@ -14,7 +14,7 @@ import {
   updateProfile,
   updateAvatar,
 } from "@/modules/Auth/auth.controller";
-import { requireAuth } from "@lapeeh/middleware/auth";
+import { requireAuth } from "lapeeh/middleware/auth";
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

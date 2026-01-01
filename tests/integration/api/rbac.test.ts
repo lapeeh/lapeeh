@@ -11,7 +11,7 @@ import {
 } from "../../../lib/core/store";
 
 // Mock auth middleware
-jest.mock("@lapeeh/middleware/auth", () => ({
+jest.mock("lapeeh/middleware/auth", () => ({
   requireAuth: (req: any, _res: any, next: any) => {
     // Simulate admin user
     req.user = { userId: "1", role: "admin" };

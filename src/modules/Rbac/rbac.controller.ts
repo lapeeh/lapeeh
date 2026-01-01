@@ -10,11 +10,11 @@ import {
   Role,
   Permission,
   saveStore,
-} from "@lapeeh/core/store";
-import { sendError, sendFastSuccess } from "@lapeeh/utils/response";
-import { Validator } from "@lapeeh/utils/validator";
+} from "lapeeh/core/store";
+import { sendError, sendFastSuccess } from "lapeeh/utils/response";
+import { Validator } from "lapeeh/utils/validator";
 import { z } from "zod";
-import { getSerializer, createResponseSchema } from "@lapeeh/core/serializer";
+import { getSerializer, createResponseSchema } from "lapeeh/core/serializer";
 
 // --- Serializers ---
 
