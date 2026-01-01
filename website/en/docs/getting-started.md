@@ -18,7 +18,6 @@ The easiest way to start is by using the `npx` CLI generator.
 Run the following command in your terminal:
 
 ```bash
-# Standard Interactive Setup
 npx lapeeh@latest init your-project-name
 ```
 

@@ -27,7 +27,6 @@ npx lapeeh@latest init <project-name> [flags]
 **Examples:**
 
 ```bash
-# Interactive Mode
 npx lapeeh init my-app
 
 # Full Setup (Recommended for learning)

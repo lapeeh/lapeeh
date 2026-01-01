@@ -18,7 +18,6 @@ Cara termudah untuk memulai adalah menggunakan CLI generator `npx`.
 Jalankan perintah berikut di terminal Anda:
 
 ```bash
-# Setup Interaktif Standar
 npx lapeeh@latest init nama-project-anda
 ```
 
