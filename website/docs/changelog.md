@@ -1,0 +1,201 @@
+# Dokumentasi Perubahan lapeeh Framework
+
+File ini mencatat semua perubahan, pembaruan, dan perbaikan yang dilakukan pada framework lapeeh, diurutkan berdasarkan tanggal.
+
+## [2025-12-30] - Selasa, 30 Desember 2025 - Otomatisasi Blog Cerdas (v3.0.8)
+
+### 🤖 Peningkatan Script Rilis
+
+- **Smart Blog Generation**: Script `release.js` kini secara cerdas membaca konten dari `CHANGELOG.md` (baik ID maupun EN) untuk membuat postingan blog rilis. Tidak ada lagi konten generik "Routine maintenance"!
+- **Deteksi Versi Fleksibel**: Peningkatan Regex untuk mendeteksi versi dalam format header changelog yang bervariasi.
+- **Dukungan Dwibahasa**: Memastikan rilis notes tersedia dalam Bahasa Indonesia dan Inggris secara akurat.
+
+## [2025-12-30] - Selasa, 30 Desember 2025 - Dokumentasi & CLI (v3.0.7)
+
+### 📚 Dokumentasi
+
+- **Panduan Struktur Proyek**: Pembaruan komprehensif pada `STRUCTURE.md` untuk mencerminkan arsitektur No-ORM dan pemisahan folder Core.
+- **Dokumentasi Scripts**: Penjelasan mendalam untuk script otomatisasi `release.js` dan `make-module.js`.
+
+### 🛠️ Perbaikan CLI
+
+- **Cleanup**: Peningkatan perintah `init` dan `upgrade` untuk menangani file konfigurasi lama dengan lebih baik.
+
+## [2025-12-30] - Selasa, 30 Desember 2025 - Major Release v3.0.0 (No-ORM)
+
+### ⚠️ Perubahan Besar (Breaking Changes)
+
+- **Penghapusan Prisma ORM**: lapeeh Framework kini **tidak lagi menyertakan ORM bawaan**. Kami memberikan kebebasan penuh kepada pengguna untuk memilih stack database mereka sendiri (TypeORM, Drizzle, dll).
+- **Update CLI**:
+  - `init`: Tidak lagi menanyakan konfigurasi database.
+  - `make:module`: Tidak lagi membuat file `.prisma`.
+  - Penghapusan script `compile-schema.js` dan logika terkait split-schema Prisma.
+
+### 🚀 Fitur & Refactor
+
+- **In-Memory Mock Data**: Modul bawaan (Auth, RBAC, Pets) kini menggunakan data dummy in-memory untuk demonstrasi tanpa perlu setup database.
+- **Redis Caching**: Implementasi caching Redis pada Pets controller.
+- **Dokumentasi**: Pembaruan menyeluruh pada dokumentasi untuk mencerminkan filosofi agnostik database.
+
+## ⚠️ Versi Usang (Deprecated Versions)
+
+Mulai dari rilis v3.0.0, semua versi sebelumnya (v1.x dan v2.x) dianggap **DEPRECATED** (usang). Tidak akan ada lagi pembaruan fitur atau perbaikan bug untuk versi-versi tersebut kecuali untuk masalah keamanan kritis. Pengguna sangat disarankan untuk bermigrasi ke v3.0.0.
+
+## [2025-12-29] - Senin, 29 Desember 2025 - Perbaikan Bug CLI Init (v2.6.7)
+
+### 🛠️ Perbaikan Bug
+
+- **Perintah CLI `init`**:
+  - **Prisma Client Generation**: Memperbaiki error `MODULE_NOT_FOUND` untuk `.prisma/client/default` saat seeding dengan memaksa eksekusi `npx prisma generate` sebelum proses seed.
+  - **Parsing Nama Project**: Memperbaiki bug kritis di mana menjalankan `npx lapeeh init <nama-project>` akan salah menafsirkan `init` sebagai nama proyek.
+  - **Manajemen Dependensi**: Mengembalikan versi ke **Prisma v6** (`^6.0.0`) dan menghapus `prisma.config.ts` untuk mengatasi error `PrismaClientConstructorValidationError` ("engine type client") di lingkungan Windows. Ini mengembalikan konfigurasi standar `schema.prisma` dengan `url = env("DATABASE_URL")`.
+  - **Peer Dependencies**: Menghapus `peerDependencies` dari project yang digenerate untuk mencegah konflik package manager.
+
+## [2025-12-29] - Senin, 29 Desember 2025 - Perbaikan CLI Upgrade & Dukungan MongoDB (v2.6.6)
+
+### 🚀 Fitur & Perbaikan
+
+- **Peningkatan Perintah CLI `upgrade`**:
+
+  - Perintah `upgrade` sekarang secara cerdas mendeteksi dan mempertahankan dependensi lokal (`file:`) di `package.json`. Ini sangat penting bagi kontributor framework dan pengujian lokal, memastikan proses upgrade tidak menimpa link lokal dengan versi npm.
+  - Pengguna standar tetap akan mendapatkan pembaruan versi npm terbaru secara otomatis.
+
+- **Kompatibilitas MongoDB & Prisma**:
+
+  - **Perbaikan BigInt**: Mengatasi masalah serialisasi di mana ID bertipe `BigInt` (umum di SQL) menyebabkan crash di lingkungan MongoDB. Semua ID di controller `auth` dan `rbac` kini dikonversi menjadi `String` sebelum dikirim sebagai respons.
+  - **Schema RBAC**: Menambahkan model RBAC yang hilang (`roles`, `permissions`, `user_roles`, `role_permissions`) ke dalam pipeline generasi `prisma/schema.prisma`. Ini memastikan `npx prisma generate` berjalan lancar tanpa perlu penyesuaian schema manual.
+
+- **Flag Inisialisasi CLI**:
+  - Menambahkan flag baru pada `npx lapeeh init` untuk setup yang lebih cepat:
+    - `--full`: Menyiapkan proyek lengkap dengan data dummy (user/role).
+    - `--default` (atau `--y`): Melewati pertanyaan interaktif dan menggunakan pengaturan default (PostgreSQL).
+
+## [2025-12-28] - Minggu, 28 Desember 2025 - Multi-Database & Cleanup (v2.4.10)
+
+### 🚀 Fitur & Perbaikan
+
+- **Dukungan Multi-Database (CLI)**:
+
+  - Menambahkan dukungan penuh untuk inisialisasi proyek dengan **MongoDB** dan **MySQL** selain **PostgreSQL**.
+  - Memperbaiki logika penggantian provider database pada template `schema.prisma` agar lebih akurat.
+  - Menambahkan argumen CLI `--db-type=mongo|pgsql|mysql` untuk otomatisasi instalasi tanpa interaksi.
+  - Mengatasi masalah migrasi pada MongoDB dengan menggunakan `prisma db push` secara kondisional.
+
+- **Pembersihan Paket (Cleanup)**:
+
+  - Menghapus file dan folder development yang tidak diperlukan (`test-local-run`, `init`, `framework.md`, dll) dari paket publik NPM.
+  - Menambahkan file `LICENSE` (MIT) secara eksplisit ke dalam paket.
+  - Memastikan folder `dist` di-generate ulang dengan bersih saat publikasi.
+
+- **Dokumentasi & Website**:
+  - Menambahkan struktur dasar dashboard admin pada dokumentasi website.
+  - Menambahkan skrip simulasi API telemetri lokal untuk pengembangan website.
+
+## [2025-12-28] - Minggu, 28 Desember 2025 - Perbaikan Upgrade & Testing (v2.4.9)
+
+### 🚀 Fitur & Perbaikan
+
+- **Smart Upgrade CLI**:
+
+  - Memperbarui perintah `npx lapeeh upgrade` agar melakukan sinkronisasi penuh (mirroring).
+  - File yang dihapus di versi terbaru framework sekarang akan otomatis dihapus juga dari proyek pengguna, menjaga proyek tetap bersih.
+  - Menghapus folder `bin` dari proses sinkronisasi ke proyek pengguna karena folder tersebut dikelola oleh paket.
+
+- **Dukungan Testing Komprehensif**:
+  - Konfigurasi `tsconfig.json` diperbarui untuk mendukung path alias `@lapeeh/*` di dalam folder `tests`.
+  - Folder `tests` sekarang dikecualikan dari proses build produksi (via `tsconfig.build.json`), menghasilkan folder `dist/` yang lebih bersih.
+  - Dokumentasi dan konfigurasi Jest telah disesuaikan untuk integrasi yang mulus.
+
+## [2025-12-28] - Minggu, 28 Desember 2025 - Perbaikan Kompatibilitas & Automasi
+
+### 🛠️ Perbaikan Bug (Bug Fixes)
+
+- **Linux/Mac Path Compatibility (v2.4.1)**:
+
+  - Memperbaiki masalah `MODULE_NOT_FOUND` pada sistem operasi Linux dan macOS ketika path proyek mengandung spasi (misalnya: `/Folder Saya/Proyek lapeeh`).
+  - Mengubah logika escaping argumen pada `nodemon` di `bin/index.js` agar menggunakan _single quotes_ pada sistem berbasis Unix.
+
+- **Auto Prisma Generate (v2.4.2)**:
+
+  - Memperbaiki error `Cannot find module '.prisma/client/default'` yang sering muncul setelah instalasi bersih.
+  - Menambahkan eksekusi otomatis `npx prisma generate` saat menjalankan perintah `npm run dev` dan `npm run build`.
+  - Memastikan Prisma Client selalu tersedia sebelum server berjalan, meningkatkan pengalaman pengguna baru.
+
+- **PM2 Ecosystem Config (v2.4.4)**:
+  - Menambahkan file `ecosystem.config.js` secara otomatis ke dalam proyek baru dan proyek yang di-upgrade.
+  - File ini berisi konfigurasi siap pakai untuk menjalankan aplikasi dalam mode **Cluster** (load balancing) di production menggunakan PM2.
+  - Memperbarui dokumentasi `doc/DEPLOYMENT.md` dengan instruksi penggunaan PM2 yang baru.
+
+## [2025-12-27] - Code Quality & Standardization Update
+
+### 🚀 Fitur & Standarisasi
+
+- **Standardized Import Paths**:
+  - Implementasi path alias `@/` untuk import yang lebih bersih (e.g., `import { prisma } from "@/core/database"`).
+  - Penghapusan penggunaan relative paths yang dalam (`../../../`).
+  - Konfigurasi `tsconfig.json` tanpa `baseUrl` (mengikuti standar TypeScript 6.0+).
+- **Strict Linting & Code Quality**:
+  - Implementasi aturan **ESLint** ketat untuk mencegah "Dead Code".
+  - Error otomatis untuk variabel, parameter, dan import yang tidak digunakan (`no-unused-vars`).
+  - Script `npm run lint` dan `npm run lint:fix` untuk pembersihan kode otomatis.
+- **Fastify-Style Standardization**:
+  - Penerapan standar respon cepat (`sendFastSuccess`) di seluruh controller (`AuthController`, `RbacController`, `PetController`).
+  - Penggunaan **Schema-based Serialization** untuk performa JSON maksimal.
+  - Konversi otomatis `BigInt` ke `string` dalam respon JSON.
+
+## [2025-12-27] - High Performance & Scalability Update
+
+### 🚀 Fitur Baru
+
+- **High Performance Serialization (Fastify-Style)**:
+  - Implementasi `fast-json-stringify` untuk serialisasi JSON super cepat (2x-3x lebih cepat dari `JSON.stringify`).
+  - Helper `sendFastSuccess` di `src/utils/response.ts` untuk mem-bypass overhead Express.
+  - Caching schema serializer otomatis di `src/core/serializer.ts`.
+- **Scalability & Clustering**:
+  - Dukungan **Load Balancing** dengan Nginx.
+  - Dukungan **Redis Clustering** untuk Rate Limiter (`rate-limit-redis`).
+  - File konfigurasi `docker-compose.cluster.yml` untuk simulasi cluster lokal (1 Nginx + 2 App Instances + 1 Redis).
+- **Smart Error Handling**:
+  - Deteksi otomatis port bentrok (`EADDRINUSE`) saat startup.
+  - Memberikan saran command _copy-paste_ untuk mematikan process yang memblokir port (support Windows, Mac, Linux).
+- **SEO Optimization**:
+  - Update metadata `package.json` dan `README.md` agar framework lebih mudah ditemukan di Google/NPM.
+
+## [2025-12-27] - Pembaruan Struktur & Validasi
+
+### 🚀 Fitur Baru
+
+- **Expressive Validator**:
+  - Implementasi utility `Validator` baru di `src/utils/validator.ts` dengan gaya validasi yang lebih ekspresif.
+  - Mendukung rule string seperti `required|string|min:3|email`.
+  - Penambahan rule `unique` untuk pengecekan database otomatis (Prisma).
+  - Penambahan rule `mimes`, `image`, `max` (file size) untuk validasi upload file.
+  - Penambahan rule `sometimes` untuk field opsional.
+- **Framework Hardening (Keamanan & Stabilitas)**:
+  - **Rate Limiting**: Middleware anti-spam/brute-force di `src/middleware/rateLimit.ts`.
+  - **Request Logger**: Pencatatan log request masuk di `src/middleware/requestLogger.ts`.
+  - **Health Check**: Endpoint `/` kini mengembalikan status kesehatan server.
+  - **Graceful Shutdown**: Penanganan penutupan koneksi Database dan Redis yang aman saat server berhenti (`SIGTERM`/`SIGINT`).
+  - **Environment Validation**: Validasi variabel `.env` wajib (seperti `DATABASE_URL`, `JWT_SECRET`) saat startup.
+- **Struktur Folder Baru**:
+  - Pemisahan konfigurasi inti ke `src/core/` (`server.ts`, `database.ts`, `redis.ts`, `realtime.ts`) agar folder `src` lebih bersih.
+  - Sentralisasi route di `src/routes/index.ts` (WIP).
+- **CLI Improvements**:
+  - `npx lapeeh <project-name> --full` kini otomatis menjalankan server dev setelah instalasi selesai, sehingga user bisa langsung melihat hasil tanpa mengetik perintah tambahan.
+
+### 🛠️ Perbaikan & Refactoring
+
+- **Controller Refactoring**:
+  - `AuthController`: Migrasi ke `Validator` baru, termasuk validasi upload avatar.
+  - `PetController`: Migrasi ke `Validator` baru.
+  - `RbacController`: Migrasi sebagian ke `Validator` baru.
+- **Pembersihan**:
+  - Penghapusan folder `src/schema/` (Zod schema lama) karena sudah digantikan oleh `Validator` utility.
+  - Penghapusan file duplikat/lama di root `src/` setelah migrasi ke `src/core/`.
+
+### 📝 Catatan Teknis
+
+- **Validator Async**: Method `fails()`, `passes()`, dan `validated()` kini bersifat `async` untuk mendukung pengecekan database (`unique`).
+- **Type Safety**: Semua perubahan telah diverifikasi dengan `npm run typecheck`.
+
+---
