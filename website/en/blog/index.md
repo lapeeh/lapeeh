@@ -4,6 +4,16 @@ Updates on lapeeh Framework development, tutorials, and tips & tricks.
 
 ---
 
+## 🚀 [Release v1.0.3: Maintenance Release](./release-v1.0.3)
+
+_January 1, 2026_ • 👤 lapeeh Team • 🏷️ _Release_
+
+Routine maintenance and bug fixes. [Read more →](./release-v1.0.3)
+
+---
+
+---
+
 ## 🚀 [Release v1.0.2: Maintenance Release](./release-v1.0.2)
 
 _January 1, 2026_ • 👤 lapeeh Team • 🏷️ _Release_

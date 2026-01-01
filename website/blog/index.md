@@ -4,6 +4,16 @@ Update terbaru seputar pengembangan lapeeh Framework, tutorial, dan tips trik.
 
 ---
 
+## 🚀 [Rilis v1.0.3: Rilis Pemeliharaan](./release-v1.0.3)
+
+_1 Januari 2026_ • 👤 lapeeh Team • 🏷️ _Release_
+
+Pembaruan rutin dan perbaikan bug. [Baca selengkapnya →](./release-v1.0.3)
+
+---
+
+---
+
 ## 🚀 [Rilis v1.0.2: Maintenance Release](./release-v1.0.2)
 
 _1 Januari 2026_ • 👤 lapeeh Team • 🏷️ _Release_

@@ -38,21 +38,35 @@ function getGitChanges() {
         const range = lastTag ? `${lastTag}..HEAD` : 'HEAD';
         const logs = execSync(`git log ${range} --pretty=format:"%s"`, { stdio: 'pipe' }).toString().trim();
         
-        if (!logs) return [];
+        if (!logs) return { raw: [], categorized: {} };
         
-        // Filter out chores, merges, etc. if desired, or keep everything
-        return logs.split('\n')
-            .map(l => l.trim())
-            .filter(l => 
-                l && 
-                !l.startsWith('chore:') && 
-                !l.startsWith('Merge branch') &&
-                !l.startsWith('docs: release') &&
-                !l.includes('release v') &&
-                !l.includes('Update version')
-            );
+        const raw = logs.split('\n').map(l => l.trim()).filter(l => l);
+        
+        const categorized = {
+            feat: [],
+            fix: [],
+            docs: [],
+            perf: [],
+            refactor: [],
+            chore: [],
+            other: []
+        };
+
+        raw.forEach(msg => {
+            // Simple conventional commit parsing
+            const lower = msg.toLowerCase();
+            if (lower.startsWith('feat') || lower.startsWith('add') || lower.startsWith('new')) categorized.feat.push(msg);
+            else if (lower.startsWith('fix') || lower.startsWith('bug')) categorized.fix.push(msg);
+            else if (lower.startsWith('docs')) categorized.docs.push(msg);
+            else if (lower.startsWith('perf')) categorized.perf.push(msg);
+            else if (lower.startsWith('refactor') || lower.startsWith('style')) categorized.refactor.push(msg);
+            else if (lower.startsWith('chore') || lower.startsWith('test') || lower.startsWith('ci')) categorized.chore.push(msg);
+            else if (!msg.startsWith('Merge') && !msg.includes('release v') && !msg.includes('Update version')) categorized.other.push(msg);
+        });
+
+        return { raw, categorized };
     } catch (e) {
-        return [];
+        return { raw: [], categorized: {} };
     }
 }
 
@@ -210,11 +224,49 @@ async function main() {
 
             if (useAuto.toLowerCase() === 'y') {
                 console.log('\n🤖 Auto-detecting changes from Git & Changelog...');
-                const changes = getGitChanges();
+                const { raw, categorized } = getGitChanges();
                 
                 // Try to read from CHANGELOG.md first
                 const parsedID = parseChangelogEntry(path.join(rootDir, 'doc/id/CHANGELOG.md'), newVersion);
                 const parsedEN = parseChangelogEntry(path.join(rootDir, 'doc/en/CHANGELOG.md'), newVersion);
+
+                // Helper to generate list from categories
+                const generateFeatureList = (lang) => {
+                    let sections = [];
+                    const isId = lang === 'id';
+                    
+                    if (categorized && categorized.feat && categorized.feat.length > 0) {
+                        sections.push(isId ? '### ✨ Fitur Baru' : '### ✨ New Features');
+                        categorized.feat.forEach(m => sections.push(`* ${m}`));
+                    }
+                    if (categorized && categorized.fix && categorized.fix.length > 0) {
+                        sections.push(isId ? '### 🐛 Perbaikan Bug' : '### 🐛 Bug Fixes');
+                        categorized.fix.forEach(m => sections.push(`* ${m}`));
+                    }
+                    if (categorized && categorized.perf && categorized.perf.length > 0) {
+                        sections.push(isId ? '### ⚡ Peningkatan Performa' : '### ⚡ Performance Improvements');
+                        categorized.perf.forEach(m => sections.push(`* ${m}`));
+                    }
+                    if (categorized && categorized.refactor && categorized.refactor.length > 0) {
+                        sections.push(isId ? '### ♻️ Refactoring' : '### ♻️ Refactoring');
+                        categorized.refactor.forEach(m => sections.push(`* ${m}`));
+                    }
+                    if (categorized && categorized.docs && categorized.docs.length > 0) {
+                        sections.push(isId ? '### 📚 Dokumentasi' : '### 📚 Documentation');
+                        categorized.docs.forEach(m => sections.push(`* ${m}`));
+                    }
+                    if (categorized && categorized.other && categorized.other.length > 0) {
+                        sections.push(isId ? '### 🔧 Lainnya' : '### 🔧 Others');
+                        categorized.other.forEach(m => sections.push(`* ${m}`));
+                    }
+                    
+                    // Fallback
+                    if (sections.length === 0) {
+                        return isId ? '* Pemeliharaan rutin dan pembaruan dependensi.' : '* Routine maintenance and dependency updates.';
+                    }
+                    
+                    return sections.join('\n');
+                };
 
                 if (parsedID) {
                     console.log('✅ Found entry in doc/id/CHANGELOG.md');
@@ -224,12 +276,12 @@ async function main() {
                     featureListID = parsedID.features; 
                 } else {
                     console.log('⚠️ No entry in doc/id/CHANGELOG.md, using git logs...');
-                    titleID = changes.length > 0 ? changes[0] : 'Maintenance Release';
-                    descriptionID = changes.length > 0 ? `Includes: ${changes.slice(0, 2).join(', ')}` : 'Routine maintenance and updates.';
-                    introID = `Kami dengan bangga mengumumkan rilis **lapeeh v${newVersion}**. Rilis ini mencakup pemeliharaan rutin dan perbaikan bug.`;
-                    featureListID = changes.length > 0 
-                        ? changes.map(f => `*   **${f.trim()}**`).join('\n')
-                        : '*   **Routine maintenance**';
+                    titleID = (categorized && categorized.feat && categorized.feat.length > 0) ? 'Fitur Baru & Peningkatan' : 'Rilis Pemeliharaan';
+                    descriptionID = (categorized && categorized.feat && categorized.feat.length > 0) 
+                        ? `Menghadirkan: ${categorized.feat.slice(0, 2).map(f => f.replace(/^feat: ?/i, '')).join(', ')}` 
+                        : 'Pembaruan rutin dan perbaikan bug.';
+                    introID = `Kami dengan bangga mengumumkan rilis **lapeeh v${newVersion}**.`;
+                    featureListID = generateFeatureList('id');
                 }
 
                 if (parsedEN) {
@@ -240,12 +292,12 @@ async function main() {
                     featureListEN = parsedEN.features;
                 } else {
                     console.log('⚠️ No entry in doc/en/CHANGELOG.md, using git logs...');
-                    titleEN = changes.length > 0 ? changes[0] : 'Maintenance Release';
-                    descriptionEN = changes.length > 0 ? `Includes: ${changes.slice(0, 2).join(', ')}` : 'Routine maintenance and updates.';
-                    introEN = `We are proud to announce the release of **lapeeh v${newVersion}**. This release includes routine maintenance and bug fixes.`;
-                    featureListEN = changes.length > 0
-                        ? changes.map(f => `*   **${f.trim()}**`).join('\n')
-                        : '*   **Routine maintenance**';
+                    titleEN = (categorized && categorized.feat && categorized.feat.length > 0) ? 'New Features & Improvements' : 'Maintenance Release';
+                    descriptionEN = (categorized && categorized.feat && categorized.feat.length > 0) 
+                        ? `Featuring: ${categorized.feat.slice(0, 2).map(f => f.replace(/^feat: ?/i, '')).join(', ')}` 
+                        : 'Routine maintenance and bug fixes.';
+                    introEN = `We are proud to announce the release of **lapeeh v${newVersion}**.`;
+                    featureListEN = generateFeatureList('en');
                 }
             } else {
                 console.log('\n📝 Manual Blog Entry');
