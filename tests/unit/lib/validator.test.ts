@@ -1,4 +1,4 @@
-import { Validator } from "../../../lib/utils/validator";
+import { Validator } from "lapeeh/utils/validator";
 
 describe("Validator", () => {
   it("should validate required fields", async () => {

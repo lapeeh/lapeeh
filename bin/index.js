@@ -588,7 +588,22 @@ async function upgradeProject() {
     fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
   }
 
-  console.log('📦 Installing updated dependencies...');
+  console.log('� Configuring jest.config.js...');
+  const jestConfigPath = path.join(currentDir, 'jest.config.js');
+  if (fs.existsSync(jestConfigPath)) {
+    let jestConfig = fs.readFileSync(jestConfigPath, 'utf8');
+    jestConfig = jestConfig.replace(
+      /'\^lapeeh\/\(\.\*\)\$': '<rootDir>\/lib\/\$1',/g,
+      `'^lapeeh/(.*)$$': '<rootDir>/node_modules/lapeeh/lib/$$1',`
+    );
+    jestConfig = jestConfig.replace(
+      /transformIgnorePatterns: \['node_modules\/\(?!\(uuid\)\/\)'\]/g,
+      `transformIgnorePatterns: ['node_modules/(?!(uuid|lapeeh)/)']`
+    );
+    fs.writeFileSync(jestConfigPath, jestConfig);
+  }
+
+  console.log('� Installing updated dependencies...');
   try {
     execSync('npm install', { cwd: currentDir, stdio: 'inherit' });
   } catch (error) {
@@ -788,7 +803,7 @@ function createProject(skipFirstArg = false) {
     const ignoreList = [
       'node_modules', 'dist', '.git', '.env', 'bin', 'scripts', 'lib',
       'package-lock.json', '.DS_Store', 'prisma', 'website', 
-      'init', 'test-local-run', 'coverage', 'doc', projectName
+      'init', 'test-local-run', 'coverage', 'doc', projectName, 'testing_playground'
     ];
 
     function copyDir(src, dest) {
@@ -886,6 +901,25 @@ function createProject(skipFirstArg = false) {
         fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
       } catch (e) {
         console.warn('⚠️  Failed to update tsconfig.json aliases.');
+      }
+    }
+
+    // Update jest.config.js
+    const jestConfigPath = path.join(projectDir, 'jest.config.js');
+    if (fs.existsSync(jestConfigPath)) {
+      try {
+        let jestConfig = fs.readFileSync(jestConfigPath, 'utf8');
+        jestConfig = jestConfig.replace(
+          /'\^lapeeh\/\(\.\*\)\$': '<rootDir>\/lib\/\$1',/g,
+          `'^lapeeh/(.*)$$': '<rootDir>/node_modules/lapeeh/lib/$$1',`
+        );
+        jestConfig = jestConfig.replace(
+          /transformIgnorePatterns: \['node_modules\/\(?!\(uuid\)\/\)'\]/g,
+          `transformIgnorePatterns: ['node_modules/(?!(uuid|lapeeh)/)']`
+        );
+        fs.writeFileSync(jestConfigPath, jestConfig);
+      } catch (e) {
+         console.warn('⚠️  Failed to update jest.config.js.');
       }
     }
 

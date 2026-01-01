@@ -1,5 +1,5 @@
 import request from "supertest";
-import { createApp } from "../../../lib/bootstrap";
+import { createApp } from "lapeeh/bootstrap";
 import { Express } from "express";
 import {
   users,
@@ -8,7 +8,7 @@ import {
   user_roles,
   user_permissions,
   role_permissions,
-} from "../../../lib/core/store";
+} from "lapeeh/core/store";
 
 // Mock auth middleware
 jest.mock("lapeeh/middleware/auth", () => ({

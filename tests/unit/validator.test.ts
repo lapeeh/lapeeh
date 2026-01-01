@@ -1,4 +1,4 @@
-import { Validator } from "../../lib/utils/validator";
+import { Validator } from "lapeeh/utils/validator";
 import { z } from "zod";
 
 describe("Validator", () => {

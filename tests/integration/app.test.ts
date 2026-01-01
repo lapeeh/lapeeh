@@ -1,5 +1,5 @@
 import request from "supertest";
-import { createApp } from "../../lib/bootstrap";
+import { createApp } from "lapeeh/bootstrap";
 import { Express } from "express";
 
 describe("App Integration", () => {

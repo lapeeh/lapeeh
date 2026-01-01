@@ -1,4 +1,4 @@
-import { getSerializer, createResponseSchema, createPaginatedResponseSchema } from '../../lib/core/serializer';
+import { getSerializer, createResponseSchema, createPaginatedResponseSchema } from 'lapeeh/core/serializer';
 
 describe('Serializer', () => {
   it('should cache serializers', () => {

@@ -41,4 +41,5 @@ storage/logs/*
 
 # Testing Area
 pengujian/
+testing_playground/
 test-local-run/

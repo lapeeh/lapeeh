@@ -1,5 +1,5 @@
 import request from "supertest";
-import { createApp } from "../../../lib/bootstrap";
+import { createApp } from "lapeeh/bootstrap";
 import { Express } from "express";
 import { users, roles } from "lapeeh/core/store";
 import bcrypt from "bcryptjs";

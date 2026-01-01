@@ -1,4 +1,4 @@
-import { getPagination, buildPaginationMeta } from "../../../lib/utils/pagination";
+import { getPagination, buildPaginationMeta } from "lapeeh/utils/pagination";
 
 describe("Pagination Utils", () => {
   describe("getPagination", () => {

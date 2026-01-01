@@ -1,8 +1,8 @@
 import request from "supertest";
-import { createApp } from "../../../lib/bootstrap";
+import { createApp } from "lapeeh/bootstrap";
 import { Express } from "express";
 import jwt from "jsonwebtoken";
-import { users, roles, user_roles } from "../../../lib/core/store";
+import { users, roles, user_roles } from "lapeeh/core/store";
 import bcrypt from "bcryptjs";
 
 // Mock auth middleware to bypass authentication for protected routes

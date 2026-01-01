@@ -1,7 +1,7 @@
-import { visitorCounter } from "../../../../lib/middleware/visitor";
-import { redis } from "../../../../lib/core/redis";
+import { visitorCounter } from "lapeeh/middleware/visitor";
+import { redis } from "lapeeh/core/redis";
 
-jest.mock("../../../../lib/core/redis", () => ({
+jest.mock("lapeeh/core/redis", () => ({
   redis: {
     status: "ready",
     incr: jest.fn(),

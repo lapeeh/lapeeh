@@ -1,5 +1,14 @@
 import { z, ZodSchema, ZodError, ZodIssue } from "zod";
 
+function isZodSchema(schema: any): schema is ZodSchema {
+  return (
+    schema instanceof ZodSchema ||
+    (schema &&
+      typeof schema === "object" &&
+      typeof schema.safeParseAsync === "function")
+  );
+}
+
 export class Validator {
   private data: any;
   private schema: ZodSchema<any>;
@@ -17,7 +26,7 @@ export class Validator {
     this.customMessages = messages;
 
     // If it's a raw object, wrap it in z.object()
-    if (schema instanceof ZodSchema) {
+    if (isZodSchema(schema)) {
       this.schema = schema;
     } else {
       this.schema = z.object(schema as any);
@@ -35,7 +44,7 @@ export class Validator {
     schema: ZodSchema<any> | Record<string, any>,
     messages: Record<string, string> = {}
   ) {
-    if (schema instanceof ZodSchema) {
+    if (isZodSchema(schema)) {
       return new Validator(data, schema, messages);
     }
 
@@ -43,7 +52,7 @@ export class Validator {
     const sameRules: { field: string; target: string }[] = [];
 
     for (const [key, rule] of Object.entries(schema)) {
-      if (rule instanceof ZodSchema) {
+      if (isZodSchema(rule)) {
         parsedSchema[key] = rule;
       } else if (typeof rule === "string" || Array.isArray(rule)) {
         const ruleStr = Array.isArray(rule) ? rule.join("|") : rule;
