@@ -211,13 +211,14 @@ async function main() {
         updatePackageJson(packageJsonPath, newVersion);
         updatePackageJson(websitePackageJsonPath, newVersion);
 
-        // 2. Question: Blog
-        const createBlog = await question('\n1. Apa Anda akan membuatkan blog untuk fitur baru ini? (y/n): ');
+        // 2. Auto-generate Blog
+        console.log('\n📝 Auto-generating blog posts...');
+        const createBlog = 'y';
         let blogTitleEN = '';
 
         if (createBlog.toLowerCase() === 'y') {
             
-            const useAuto = await question('🤖 Auto-generate content from CHANGELOG/Git? (y/n): ');
+            const useAuto = 'y';
             
             let titleID, descriptionID, introID, featureListID;
             let titleEN, descriptionEN, introEN, featureListEN;
