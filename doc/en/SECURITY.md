@@ -84,7 +84,7 @@ Lapeeh sudah menangani ini. Di mode `production`, error internal hanya akan mena
 ## 3. Checklist Sebelum Deploy
 
 - [ ] Pastikan `NODE_ENV=production` di server.
-- [ ] Ganti `JWT_SECRET` default dengan yang baru (`npm run generate:jwt`).
+- [ ] Ganti `JWT_SECRET` default dengan yang baru (gunakan string acak yang kuat).
 - [ ] Batasi CORS origin hanya ke domain frontend Anda.
 - [ ] Pastikan database tidak bisa diakses publik (gunakan firewall/private IP).
 - [ ] Gunakan HTTPS (SSL/TLS). API tanpa HTTPS sangat mudah disadap.

@@ -242,7 +242,7 @@ export default defineConfig({
         ],
         footer: {
           message: "Released under the MIT License.",
-          copyright: "Copyright © 2025-present robyajo",
+          copyright: "Copyright © 2025 Lapeeh Framework",
         },
         docFooter: {
           prev: "Previous Page",
@@ -257,14 +257,12 @@ export default defineConfig({
 
   themeConfig: {
     logo: "/logo.png",
-    socialLinks: [
-      { icon: "github", link: "https://github.com/robyajo/lapeeh" },
-    ],
+    socialLinks: [{ icon: "github", link: "https://github.com/lapeeh/lapeeh" }],
     search: {
       provider: "local",
     },
     editLink: {
-      pattern: "https://github.com/robyajo/lapeeh/edit/main/doc/:path",
+      pattern: "https://github.com/lapeeh/lapeeh/edit/main/doc/:path",
       text: "Edit page on GitHub",
     },
   },

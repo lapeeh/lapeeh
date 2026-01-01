@@ -1,18 +1,16 @@
 # lapeeh Framework Cheatsheet
 
-Referensi cepat untuk perintah dan kode yang sering digunakan.
+Quick reference for frequently used commands and code.
 
 ## 💻 CLI Commands
 
-| Perintah                             | Fungsi                                       |
-| :----------------------------------- | :------------------------------------------- |
-| **`npm run dev`**                    | Menjalankan server development (hot-reload). |
-| **`npm run typecheck`**              | Cek error TypeScript (tanpa compile).        |
-| **`npm run lint`**                   | Cek kode kotor/variabel tidak terpakai.      |
-| **`npm run lint:fix`**               | Perbaiki kode kotor otomatis.                |
-| **`npm run make:module <Name>`**     | Create Controller, Route, & Model.           |
-| **`npm run make:controller <Name>`** | Create Controller only.                      |
-| **`npm run db:seed`**                | Seed dummy data.                             |
+| Perintah                            | Fungsi                                      |
+| :---------------------------------- | :------------------------------------------ |
+| **`npm run dev`**                   | Runs development server (hot-reload).       |
+| **`npm run typecheck`**             | Checks TypeScript errors (without compile). |
+| **`npm run lint`**                  | Checks for dirty code/unused variables.     |
+| **`npm run lint:fix`**              | Automatically fixes dirty code.             |
+| **`npx lapeeh make:module <Name>`** | Creates Controller, Route, & Model.         |
 
 ## 🛡️ Validator Rules (Simple Syntax)
 

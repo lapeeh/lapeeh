@@ -2,9 +2,9 @@
 
 lapeeh Framework dilengkapi dengan berbagai script CLI untuk mempercepat proses development, mulai dari generate code hingga manajemen database.
 
-Semua perintah dijalankan menggunakan `npm run <command>`.
+Semua perintah CLI framework dapat dijalankan menggunakan `npx lapeeh <command>`.
 
-> **Info:** Di balik layar, script `npm run` ini memanggil CLI internal framework (`lapeeh`). Anda juga bisa menjalankan perintah ini secara langsung menggunakan `npx lapeeh <command>`.
+> **Info:** Beberapa perintah umum (seperti `dev`, `start`, `build`) juga tersedia sebagai script `npm run` untuk kemudahan.
 
 ## Core Commands
 
@@ -80,34 +80,39 @@ npm run build
 npx lapeeh build
 ```
 
+### 4. Menjalankan Testing (`tes`)
+
+Menjalankan unit & integration test menggunakan Jest, sekaligus menjalankan **JSON Server** secara otomatis agar database testing terisolasi.
+
+```bash
+npx lapeeh tes
+# atau
+npm test
+```
+
+- Otomatis membuat `database.test.json` (terisolasi dari `database.json` utama).
+- Menjalankan JSON Server di port 3001.
+- Menjalankan test suite Jest.
+
 ## Code Generators
 
 Gunakan perintah ini untuk membuat file boilerplate secara otomatis.
 
 ### 1. Membuat Module Lengkap (`make:module`)
 
-Membuat Controller dan Route sekaligus.
+Membuat Controller, Service, dan Route sekaligus dalam satu folder modul.
 
 ```bash
-npm run make:module <nama-module>
+npx lapeeh make:module <nama-module>
 ```
 
-**Contoh:** `npm run make:module Product`
+**Contoh:** `npx lapeeh make:module Product`
 
 Output:
 
-- `src/controllers/productController.ts`
-- `src/routes/product.ts`
-
-### 2. Membuat Controller (`make:controller`)
-
-Hanya membuat file controller dengan method CRUD dasar.
-
-```bash
-npm run make:controller <nama-controller>
-```
-
-**Contoh:** `npm run make:controller Order` (Akan membuat `src/controllers/orderController.ts`)
+- `src/modules/Product/product.controller.ts`
+- `src/modules/Product/product.service.ts`
+- `src/modules/Product/product.routes.ts`
 
 ## Code Quality & Utilities
 
@@ -127,12 +132,4 @@ Memeriksa error tipe data TypeScript tanpa melakukan compile.
 
 ```bash
 npm run typecheck
-```
-
-### 3. Generate JWT Secret (`generate:jwt`)
-
-Membuat random string aman untuk `JWT_SECRET` di file `.env`.
-
-```bash
-npm run generate:jwt
 ```

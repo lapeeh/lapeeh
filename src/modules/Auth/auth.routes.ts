@@ -13,7 +13,7 @@ import {
   updatePassword,
   updateProfile,
   updateAvatar,
-} from "@/modules/Auth/auth.controller";
+} from "./auth.controller";
 import { requireAuth } from "lapeeh/middleware/auth";
 
 const authLimiter = rateLimit({

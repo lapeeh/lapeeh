@@ -10,9 +10,7 @@ Referensi cepat untuk perintah dan kode yang sering digunakan.
 | **`npm run typecheck`**              | Cek error TypeScript (tanpa compile).        |
 | **`npm run lint`**                   | Cek kode kotor/variabel tidak terpakai.      |
 | **`npm run lint:fix`**               | Perbaiki kode kotor otomatis.                |
-| **`npm run make:module <Name>`**     | Buat Controller, Route, & Model sekaligus.   |
-| **`npm run make:controller <Name>`** | Buat Controller saja.                        |
-| **`npm run db:seed`**                | Isi data dummy.                              |
+| **`npx lapeeh make:module <Name>`**  | Buat Controller, Route, & Model sekaligus.   |
 
 ## 🛡️ Validator Rules (Simple Syntax)
 

@@ -23,15 +23,18 @@ Ini adalah "kandang" Anda. 99% kode fitur baru akan ditulis di sini.
 
 lapeeh menggunakan pendekatan **Modular**. Satu fitur = Satu folder.
 
-- **Contoh**: Folder `src/modules/Auth/` berisi semua logika login/register.
+- **Contoh**: Folder `src/modules/Auth/` berisi:
+  - `auth.controller.ts`: Menangani request/response.
+  - `auth.service.ts`: Logika bisnis.
+  - `auth.routes.ts`: Definisi routing modul.
 - **Keuntungan**: Kode rapi, mudah dicari, dan mudah dihapus jika fitur tidak dipakai lagi.
 
 ### `src/routes/`
 
-Pintu gerbang API Anda.
+Pintu gerbang utama API Anda.
 
-- Mendefinisikan URL (misal: `/api/users`).
-- Menghubungkan URL ke **Controller**.
+- `index.ts`: Mengumpulkan semua route dari berbagai modul (misal: `/api/auth` diarahkan ke module Auth).
+- Tempat mendefinisikan middleware global untuk grup route tertentu.
 
 ### `src/config/`
 

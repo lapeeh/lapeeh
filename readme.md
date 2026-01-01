@@ -11,6 +11,7 @@ Cocok untuk developer yang mencari **Express boilerplate** dengan fitur lengkap:
 - **Database Agnostic**: Bebas pilih database dan ORM pilihan Anda.
 - **Standardized Structure**: Controller, Service, dan Route yang terpisah rapi.
 - **Auto CLI Generator**: Buat modul dan controller dengan satu perintah.
+- **Integrated Testing**: Perintah `npx lapeeh tes` untuk menjalankan Jest & JSON Server otomatis.
 - **Smart Caching**: Otomatis menggunakan Redis jika tersedia, fallback ke in-memory jika tidak.
 - **Secure by Default**: Dilengkapi Helmet, Rate Limiting, CORS, dan JWT Auth.
 - **Robust Validation**: Validasi request otomatis menggunakan Zod.
@@ -161,8 +162,8 @@ API lapeeh menyediakan tools untuk mempercepat development, mirip dengan `artisa
 Membuat Controller, Service, dan Route sekaligus.
 
 ```bash
-npm run make:module NamaResource
-# Contoh: npm run make:module Product
+npx lapeeh make:module NamaResource
+# Contoh: npx lapeeh make:module Product
 ```
 
 Command ini akan membuat:
@@ -171,19 +172,7 @@ Command ini akan membuat:
 - `src/services/product.service.ts`
 - `src/routes/product.route.ts` (dan otomatis didaftarkan di `src/routes/index.ts` jika memungkinkan)
 
-### 2. Membuat Controller
-
-Membuat file Controller baru. Gunakan flag `-r` untuk membuat controller lengkap dengan method CRUD (index, show, store, update, destroy).
-
-```bash
-npm run make:controller NamaController
-# Contoh Basic: npm run make:controller PaymentController
-
-# Contoh Resource (CRUD Lengkap):
-npm run make:controller PaymentController -r
-```
-
-### 3. Database (No-ORM)
+### 2. Database (No-ORM)
 
 Since the latest version, lapeeh Framework **does not include a default ORM** (like Prisma). We believe in giving you full control over your database stack.
 
@@ -250,7 +239,7 @@ MIT
 ### 2) Production Environment
 
 - Pastikan `.env` berisi kredensial production:
-  - `JWT_SECRET` (gunakan `npm run generate:jwt` untuk mengganti)
+  - `JWT_SECRET` (gunakan string acak yang kuat)
   - Database credentials (sesuai pilihan ORM/DB Anda)
 
 ### 3) Menjalankan dengan PM2

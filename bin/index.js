@@ -145,8 +145,9 @@ function showHelp() {
     "  upgrade         Upgrade project files to match framework version"
   );
   console.log(
-    "  module <name>   Create a new module (controller, routes, etc.)"
+    "  make:module <name> Create a new module (controller, routes, etc.)"
   );
+  console.log("  test            Run tests (Unit & Integration)");
   console.log("  help            Show this help message");
   console.log("\nOptions:");
   console.log(
@@ -191,6 +192,46 @@ switch (command) {
     (async () => {
       await upgradeProject();
     })();
+    break;
+  case "tes":
+  case "test":
+    const dbFile = "database.test.json";
+    if (!fs.existsSync(dbFile)) {
+      if (fs.existsSync("database.json")) {
+        fs.copyFileSync("database.json", dbFile);
+      } else {
+        fs.writeFileSync(dbFile, JSON.stringify({ users: [] }));
+      }
+    }
+
+    console.log("🚀 Starting JSON Server on port 3001...");
+    const jsonServer = spawn(
+      "npx",
+      ["json-server", "--watch", dbFile, "--port", "3001"],
+      {
+        stdio: "inherit",
+        shell: true,
+        cwd: process.cwd(),
+      }
+    );
+
+    console.log("🧪 Running tests...");
+    const runTest = spawn("npm", ["test"], {
+      stdio: "inherit",
+      shell: true,
+      cwd: process.cwd(),
+      env: { ...process.env, DB_FILE: dbFile },
+    });
+
+    runTest.on("close", (code) => {
+      console.log("🛑 Stopping JSON Server...");
+      if (process.platform === "win32") {
+        spawn("taskkill", ["/pid", jsonServer.pid, "/f", "/t"]);
+      } else {
+        jsonServer.kill();
+      }
+      process.exit(code);
+    });
     break;
   case "make:module":
   case "module":
@@ -262,21 +303,45 @@ async function checkUpdate() {
 
       if (isOutdated) {
         console.log("\n");
+        const boxWidth = 60;
+        const borderColor = "\x1b[33m";
+        const resetColor = "\x1b[0m";
+        const titleColor = "\x1b[1m";
+        const redColor = "\x1b[31m";
+        const greenColor = "\x1b[32m";
+        const cyanColor = "\x1b[36m";
+
+        const horizontalLine = "─".repeat(boxWidth - 2);
+        const topBorder = `${borderColor}┌${horizontalLine}┐${resetColor}`;
+        const bottomBorder = `${borderColor}└${horizontalLine}┘${resetColor}`;
+
+        const pad = (text) => {
+          // Remove ANSI codes to calculate actual length
+          const visibleLength = text.replace(
+            /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+            ""
+          ).length;
+          const padding = Math.max(0, boxWidth - 4 - visibleLength);
+          return text + " ".repeat(padding);
+        };
+
+        console.log(topBorder);
         console.log(
-          "\x1b[33m┌────────────────────────────────────────────────────────────┐\x1b[0m"
+          `${borderColor}│${resetColor}  ${pad(
+            `${titleColor}Update available!${resetColor} ${redColor}${currentVersion}${resetColor} → ${greenColor}${latestVersion}${resetColor}`
+          )}  ${borderColor}│${resetColor}`
         );
         console.log(
-          `\x1b[33m│\x1b[0m  \x1b[1mUpdate available!\x1b[0m \x1b[31m${currentVersion}\x1b[0m → \x1b[32m${latestVersion}\x1b[0m                           \x1b[33m│\x1b[0m`
+          `${borderColor}│${resetColor}  ${pad(
+            `Run ${cyanColor}npm install lapeeh@latest${resetColor} to update`
+          )}  ${borderColor}│${resetColor}`
         );
         console.log(
-          `\x1b[33m│\x1b[0m  Run \x1b[36mnpm install lapeeh@latest\x1b[0m to update                  \x1b[33m│\x1b[0m`
+          `${borderColor}│${resetColor}  ${pad(
+            `Then run ${cyanColor}npx lapeeh upgrade${resetColor} to sync files`
+          )}  ${borderColor}│${resetColor}`
         );
-        console.log(
-          `\x1b[33m│\x1b[0m  Then run \x1b[36mnpx lapeeh upgrade\x1b[0m to sync files               \x1b[33m│\x1b[0m`
-        );
-        console.log(
-          "\x1b[33m└────────────────────────────────────────────────────────────┘\x1b[0m"
-        );
+        console.log(bottomBorder);
         console.log("\n");
       }
     }
@@ -965,6 +1030,12 @@ function createProject(skipFirstArg = false) {
 
     console.log("\n📂 Copying template files...");
     copyDir(templateDir, projectDir);
+
+    // Remove framework unit tests from user project
+    const unitTestsPath = path.join(projectDir, "tests", "unit");
+    if (fs.existsSync(unitTestsPath)) {
+      fs.rmSync(unitTestsPath, { recursive: true, force: true });
+    }
 
     const gitignoreTemplate = path.join(projectDir, "gitignore.template");
     if (fs.existsSync(gitignoreTemplate)) {

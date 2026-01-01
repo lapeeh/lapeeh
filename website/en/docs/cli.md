@@ -2,9 +2,9 @@
 
 lapeeh Framework comes with various CLI scripts to speed up the development process.
 
-All commands are executed using `npm run <command>`.
+All framework CLI commands can be executed using `npx lapeeh <command>`.
 
-> **Info:** Behind the scenes, these `npm run` scripts call the internal framework CLI (`lapeeh`). You can also run these commands directly using `npx lapeeh <command>`.
+> **Info:** Some common commands (like `dev`, `start`, `build`) are also available as `npm run` scripts for convenience.
 
 ## Core Commands
 
@@ -80,31 +80,38 @@ npm run build
 npx lapeeh build
 ```
 
+### 4. Run Tests (`tes`)
+
+Runs unit & integration tests using Jest, while automatically running **JSON Server** to keep the test database isolated.
+
+```bash
+npx lapeeh tes
+# or
+npm test
+```
+
+- Automatically creates `database.test.json` (isolated from main `database.json`).
+- Starts JSON Server on port 3001.
+- Runs Jest test suite.
+
 ## Code Generators
 
 Use these commands to create boilerplate files automatically.
 
 ### 1. Create Complete Module (`make:module`)
 
-Creates Controller and Route at once.
+Creates Controller, Service, and Route at once in a single module folder.
 
 ```bash
-npm run make:module <module-name>
+npx lapeeh make:module <module-name>
 ```
 
-**Example:** `npm run make:module Product`
+**Example:** `npx lapeeh make:module Product`
 
 Output:
 
-- `src/controllers/productController.ts`
-- `src/routes/product.ts`
+- `src/modules/Product/product.controller.ts`
+- `src/modules/Product/product.service.ts`
+- `src/modules/Product/product.routes.ts`
 
-### 2. Create Controller (`make:controller`)
-
-Only creates a controller file with basic CRUD methods.
-
-```bash
-npm run make:controller <controller-name>
-```
-
-**Example:** `npm run make:controller Order` (Will create `src/controllers/orderController.ts`)
+## Code Quality & Utilities

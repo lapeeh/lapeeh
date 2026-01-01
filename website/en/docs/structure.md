@@ -23,15 +23,18 @@ This is your "home". 99% of new feature code will be written here.
 
 lapeeh uses a **Modular** approach. One feature = One folder.
 
-- **Example**: `src/modules/Auth/` folder contains all login/register logic.
+- **Example**: `src/modules/Auth/` folder contains:
+  - `auth.controller.ts`: Handles request/response.
+  - `auth.service.ts`: Business logic.
+  - `auth.routes.ts`: Module routing definition.
 - **Benefit**: Code is neat, easy to find, and easy to delete if the feature is no longer used.
 
 ### `src/routes/`
 
-Your API gateway.
+Your main API gateway.
 
-- Defines URLs (e.g., `/api/users`).
-- Connects URLs to **Controllers**.
+- `index.ts`: Aggregates all routes from various modules (e.g., `/api/auth` mapped to Auth module).
+- Place to define global middleware for specific route groups.
 
 ### `src/config/`
 

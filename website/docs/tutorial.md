@@ -13,7 +13,7 @@ Dalam tutorial ini, kita akan membangun fitur "Manajemen Buku" sederhana menggun
 Kita akan membuat controller dan route untuk fitur Buku.
 
 ```bash
-npm run make:module Book
+npx lapeeh make:module Book
 ```
 
 Framework akan membuat:

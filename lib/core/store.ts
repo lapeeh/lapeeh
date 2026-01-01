@@ -54,7 +54,10 @@ export interface UserPermission {
 }
 
 // Database file path
-const dbPath = path.resolve(process.cwd(), "database.json");
+const dbPath = path.resolve(
+  process.cwd(),
+  process.env.DB_FILE || "database.json"
+);
 
 // Load data function
 function loadData() {

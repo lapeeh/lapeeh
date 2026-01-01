@@ -13,7 +13,7 @@ In this tutorial, we will build a simple "Book Management" feature using lapeeh 
 We will create a controller and route for our Book feature.
 
 ```bash
-npm run make:module Book
+npx lapeeh make:module Book
 ```
 
 The framework will generate:

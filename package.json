@@ -1,6 +1,6 @@
 {
   "name": "lapeeh",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "lapeeh Framework  (Standardized by lapeeh)",
   "engines": {
     "node": ">=18.0.0",
@@ -36,7 +36,8 @@
     "eslint.config.mjs",
     "gitignore.template",
     "ecosystem.config.js",
-    "tsconfig.build.json"
+    "tsconfig.build.json",
+    "tests"
   ],
   "scripts": {
     "dev": "node bin/index.js dev",
@@ -75,7 +76,6 @@
   "author": "lapeeh <lapeehframework.dev@gmail.com>",
   "license": "MIT",
   "type": "commonjs",
-  "peerDependencies": {},
   "dependencies": {
     "@types/bcryptjs": "2.4.6",
     "@types/compression": "^1.8.1",
@@ -96,6 +96,7 @@
     "helmet": "8.1.0",
     "ioredis": "5.8.2",
     "ioredis-mock": "^8.13.1",
+    "json-server": "^1.0.0-beta.3",
     "jsonwebtoken": "9.0.3",
     "module-alias": "^2.2.3",
     "multer": "2.0.2",
