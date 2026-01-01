@@ -30,7 +30,7 @@ D. configurasi yang mungkin dibutuhkan untuk uji coba
  password: 12341234
 
 database traking aksi user untuk (mongodb+srv://roby:Tiram@1993@cluster0.aokm4ww.mongodb.net/?appName=Cluster0)
-Catatan Penting : Saat ini, Dashboard menggunakan Mock Data (data simulasi) karena Anda belum memiliki server database backend yang aktif untuk menampung data telemetry ini. Kode di CLI ( bin/index.js ) sudah siap mengirim data ke https://lapeeh-doc.vercel.app/api/telemetry .
+Catatan Penting : Saat ini, Dashboard menggunakan Mock Data (data simulasi) karena Anda belum memiliki server database backend yang aktif untuk menampung data telemetry ini. Kode di CLI ( bin/index.js ) sudah siap mengirim data ke https://lapeeh.vercel.app/api/telemetry .
 
 Langkah selanjutnya untuk membuat ini "Live":
 

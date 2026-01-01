@@ -10,7 +10,7 @@ const pkg = JSON.parse(
 const version = pkg.version;
 
 export default defineConfig({
-  title: "lapeeh Framework",
+  title: "Lapeeh Framework",
   // Shared properties
   cleanUrls: true,
   ignoreDeadLinks: true,
@@ -26,7 +26,7 @@ export default defineConfig({
     },
   },
   sitemap: {
-    hostname: "https://lapeeh-doc.vercel.app",
+    hostname: "https://lapeeh.vercel.app",
   },
 
   head: [
@@ -58,19 +58,19 @@ export default defineConfig({
       {
         name: "keywords",
         content:
-          "lapeeh Framework, Node.js, Express, TypeScript, Backend, API, Boilerplate, Prisma, Javascript, Framework Indonesia",
+          "Lapeeh Framework, Node.js, Express, TypeScript, Backend, API, Boilerplate, Prisma, Javascript, Framework Indonesia",
       },
     ],
     ["meta", { name: "author", content: "robyajo" }],
     ["meta", { name: "robots", content: "index, follow" }],
     // Open Graph
-    ["meta", { property: "og:site_name", content: "lapeeh Framework" }],
+    ["meta", { property: "og:site_name", content: "Lapeeh Framework" }],
     ["meta", { property: "og:type", content: "website" }],
     [
       "meta",
       {
         property: "og:image",
-        content: "https://lapeeh-doc.vercel.app/ogimage.png",
+        content: "https://lapeeh.vercel.app/ogimage.png",
       },
     ],
     // Twitter
@@ -79,7 +79,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image",
-        content: "https://lapeeh-doc.vercel.app/ogimage.png",
+        content: "https://lapeeh.vercel.app/ogimage.png",
       },
     ],
   ],
