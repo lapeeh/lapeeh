@@ -522,7 +522,6 @@ async function upgradeProject() {
   }
 
   const filesToSync = [
-    "lib",
     "docker-compose.yml",
     ".env.example",
     ".vscode",
