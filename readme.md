@@ -185,7 +185,7 @@ npm run make:controller PaymentController -r
 
 ### 3. Database (No-ORM)
 
-Since v3.0.0, lapeeh Framework **does not include a default ORM** (like Prisma). We believe in giving you full control over your database stack.
+Since the latest version, lapeeh Framework **does not include a default ORM** (like Prisma). We believe in giving you full control over your database stack.
 
 You can freely choose to use:
 

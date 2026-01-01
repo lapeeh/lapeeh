@@ -134,7 +134,7 @@ process.on("uncaughtException", async (err) => {
 });
 
 function showHelp() {
-  console.log("\n\x1b[36m   L A P E H   F R A M E W O R K   C L I\x1b[0m\n");
+  console.log("\n\x1b[36m   L A P E E H   F R A M E W O R K   C L I\x1b[0m\n");
   console.log("Usage: npx lapeeh <command> [options]\n");
   console.log("Commands:");
   console.log("  create <name>   Create a new lapeeh project");

@@ -6,7 +6,7 @@ In this tutorial, we will build a simple "Book Management" feature using lapeeh 
 2.  **Validator** for input validation.
 3.  **Fast Serialization** for high-performance responses.
 
-> **Note**: This tutorial uses an in-memory array for data storage to keep things simple. lapeeh v3.0.0 is database-agnostic, so you can easily swap this with Prisma, TypeORM, or any other DB library.
+> **Note**: This tutorial uses an in-memory array for data storage to keep things simple. lapeeh is database-agnostic, so you can easily swap this with Prisma, TypeORM, or any other DB library.
 
 ## Step 1: Generate Module (Controller & Route)
 

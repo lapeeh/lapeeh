@@ -6,7 +6,7 @@ Dalam tutorial ini, kita akan membangun fitur "Manajemen Buku" sederhana menggun
 2.  **Validator** untuk validasi input.
 3.  **Fast Serialization** untuk respon cepat.
 
-> **Catatan**: Tutorial ini menggunakan array in-memory untuk penyimpanan data agar tetap sederhana. lapeeh v3.0.0 bersifat database-agnostic, jadi Anda bebas menggantinya dengan Prisma, TypeORM, atau library database lainnya.
+> **Catatan**: Tutorial ini menggunakan array in-memory untuk penyimpanan data agar tetap sederhana. lapeeh bersifat database-agnostic, jadi Anda bebas menggantinya dengan Prisma, TypeORM, atau library database lainnya.
 
 ## Langkah 1: Generate Module (Controller & Route)
 
