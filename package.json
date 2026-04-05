@@ -1,12 +1,25 @@
 {
   "name": "lapeeh",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "lapeeh Framework  (Standardized by lapeeh)",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "main": "dist/lib/bootstrap.js",
+  "exports": {
+    ".": {
+      "types": "./dist/lib/bootstrap.d.ts",
+      "require": "./dist/lib/bootstrap.js",
+      "default": "./dist/lib/bootstrap.js"
+    },
+    "./*": {
+      "types": "./dist/lib/*.d.ts",
+      "require": "./dist/lib/*.js",
+      "default": "./dist/lib/*.js"
+    },
+    "./package.json": "./package.json"
+  },
   "bin": {
     "lapeeh": "bin/index.js"
   },
@@ -19,6 +32,13 @@
     "url": "https://github.com/lapeeh/lapeeh/issues"
   },
   "types": "dist/lib/bootstrap.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/lib/*"
+      ]
+    }
+  },
   "files": [
     "bin",
     "dist",
@@ -49,6 +69,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest",
+    "prepublishOnly": "npm run build",
     "generate:jwt": "node scripts/generate-jwt-secret.js",
     "make:module": "node scripts/make-module.js",
     "make:modul": "node scripts/make-module.js",
@@ -121,6 +142,7 @@
     "globals": "^16.5.0",
     "jest": "^30.2.0",
     "supertest": "^7.1.4",
+    "tsc-alias": "^1.8.16",
     "ts-jest": "^29.4.6",
     "typescript-eslint": "^8.50.1"
   }
