@@ -14,6 +14,16 @@ Pembaruan rutin dan perbaikan bug. [Baca selengkapnya →](./release-v1.0.10)
 
 ---
 
+## 🚀 [Rilis v1.0.10: Rilis Pemeliharaan & Update Rutin](./release-v1.0.10)
+
+_6 April 2026_ • 👤 lapeeh Team • 🏷️ _Release_
+
+Pembaruan rutin dan perbaikan bug. [Baca selengkapnya →](./release-v1.0.10)
+
+---
+
+---
+
 ## 🚀 [Rilis v1.0.9: Rilis Pemeliharaan & Update Rutin](./release-v1.0.9)
 
 _2 Januari 2026_ • 👤 lapeeh Team • 🏷️ _Release_

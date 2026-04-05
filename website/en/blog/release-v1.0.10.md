@@ -13,9 +13,7 @@ We are proud to announce the release of **lapeeh v1.0.10**.
 
 ## What's New? 🚀
 
-### 🔧 Tasks & Chores
-
-* chore: update express-rate-limit and multer dependencies to latest versions
+* Routine maintenance and dependency updates.
 
 ## How to Upgrade
 

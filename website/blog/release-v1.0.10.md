@@ -13,9 +13,7 @@ Kami dengan bangga mengumumkan rilis **lapeeh v1.0.10**.
 
 ## Apa yang Baru? 🚀
 
-### 🔧 Tugas & Pemeliharaan
-
-* chore: update express-rate-limit and multer dependencies to latest versions
+* Pemeliharaan rutin dan pembaruan dependensi.
 
 ## Cara Upgrade
 
