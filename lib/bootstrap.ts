@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import moduleAlias from "module-alias";
+import moduleAlias = require("module-alias");
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
