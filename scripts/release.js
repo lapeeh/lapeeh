@@ -10,6 +10,40 @@ const rl = readline.createInterface({
 
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
+function getCommandOutput(command, options = {}) {
+    try {
+        return execSync(command, {
+            stdio: 'pipe',
+            encoding: 'utf8',
+            ...options
+        }).trim();
+    } catch (error) {
+        const stdout = error.stdout ? error.stdout.toString() : '';
+        const stderr = error.stderr ? error.stderr.toString() : '';
+        const combined = `${stdout}\n${stderr}`.trim();
+        error.combinedOutput = combined;
+        throw error;
+    }
+}
+
+function isOtpError(output) {
+    const text = (output || '').toLowerCase();
+    return text.includes('one-time pass') ||
+        text.includes('otp') ||
+        text.includes('eotp');
+}
+
+function isPermissionError(output) {
+    const text = (output || '').toLowerCase();
+    return text.includes('e404') ||
+        text.includes('404 not found') ||
+        text.includes('e403') ||
+        text.includes('permission') ||
+        text.includes('not authorized') ||
+        text.includes('not in this registry') ||
+        text.includes('cannot publish over the previously published versions');
+}
+
 // Paths
 const rootDir = path.resolve(__dirname, '..');
 const websiteDir = path.join(rootDir, 'website');
@@ -73,7 +107,15 @@ function getGitChanges() {
 // Helper to get npm version
 function getNpmVersion() {
     try {
-        return execSync('npm view lapeeh version', { stdio: 'pipe' }).toString().trim();
+        return getCommandOutput('npm view lapeeh version');
+    } catch (e) {
+        return null;
+    }
+}
+
+function getNpmUser() {
+    try {
+        return getCommandOutput('npm whoami');
     } catch (e) {
         return null;
     }
@@ -505,17 +547,41 @@ Thank you for being part of the lapeeh Framework journey!
         // 5. Question: NPM
         const publishNpm = await question('\n4. Apa ingin publish ke NPM? (y/n): ');
         if (publishNpm.toLowerCase() === 'y') {
+            const npmUser = getNpmUser();
+            if (npmUser) {
+                console.log(`👤 NPM login terdeteksi sebagai: ${npmUser}`);
+            } else {
+                console.log('⚠️  Tidak bisa mendeteksi user NPM. Pastikan sudah login dengan `npm login`.');
+            }
+
             try {
                 execSync('npm publish', { stdio: 'inherit' });
                 console.log('✅ NPM publish complete');
             } catch (error) {
-                console.log('\n⚠️  NPM Publish failed. This might be due to 2FA.');
-                const otp = await question('🔐 Masukkan kode OTP (Authenticator App) Anda: ');
-                if (otp && otp.trim() !== '') {
-                     execSync(`npm publish --otp=${otp.trim()}`, { stdio: 'inherit' });
-                     console.log('✅ NPM publish complete');
+                const details = error.combinedOutput || error.message || '';
+
+                if (isOtpError(details)) {
+                    console.log('\n⚠️  NPM Publish gagal karena membutuhkan OTP 2FA.');
+                    const otp = await question('🔐 Masukkan kode OTP (Authenticator App) Anda: ');
+                    if (otp && otp.trim() !== '') {
+                        execSync(`npm publish --otp=${otp.trim()}`, { stdio: 'inherit' });
+                        console.log('✅ NPM publish complete');
+                    } else {
+                        console.log('❌ NPM publish dibatalkan karena OTP kosong.');
+                        throw error;
+                    }
+                } else if (isPermissionError(details)) {
+                    console.log('\n❌ NPM Publish gagal karena akun ini tidak punya akses publish ke paket `lapeeh`, atau versinya sudah bermasalah di registry.');
+                    if (npmUser) {
+                        console.log(`ℹ️  User aktif: ${npmUser}`);
+                    }
+                    console.log('ℹ️  Cek dengan: `npm whoami`, `npm owner ls lapeeh`, atau gunakan package name/scope yang memang Anda miliki.');
+                    throw error;
                 } else {
-                    console.log('❌ NPM publish aborted.');
+                    console.log('\n❌ NPM Publish gagal karena alasan lain, bukan OTP.');
+                    if (details) {
+                        console.log(details);
+                    }
                     throw error;
                 }
             }

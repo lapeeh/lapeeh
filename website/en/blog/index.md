@@ -24,6 +24,16 @@ Routine maintenance and bug fixes. [Read more →](./release-v1.0.10)
 
 ---
 
+## 🚀 [Release v1.0.10: Maintenance Release & Routine Updates](./release-v1.0.10)
+
+_April 6, 2026_ • 👤 lapeeh Team • 🏷️ _Release_
+
+Routine maintenance and bug fixes. [Read more →](./release-v1.0.10)
+
+---
+
+---
+
 ## 🚀 [Release v1.0.9: Maintenance Release & Routine Updates](./release-v1.0.9)
 
 _January 2, 2026_ • 👤 lapeeh Team • 🏷️ _Release_
