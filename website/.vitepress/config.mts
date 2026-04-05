@@ -103,6 +103,13 @@ export default defineConfig({
     ],
     ["meta", { name: "author", content: "robyajo" }],
     ["meta", { name: "robots", content: "index, follow" }],
+    [
+      "meta",
+      {
+        name: "google-site-verification",
+        content: "wxBUXFsePPf4nmEM6EFDXJZ5PDmI4i0E9v5EROQfXGQ",
+      },
+    ],
     // Open Graph
     ["meta", { property: "og:site_name", content: "Lapeeh Framework" }],
     ["meta", { property: "og:type", content: "website" }],

@@ -1,6 +1,6 @@
 {
   "name": "lapeeh",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "lapeeh Framework  (Standardized by lapeeh)",
   "engines": {
     "node": ">=18.0.0",
