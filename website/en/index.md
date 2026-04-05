@@ -1,5 +1,7 @@
 ---
 layout: home
+title: Lapeeh Framework
+description: Lapeeh Framework is a Node.js API framework built with Express and TypeScript, with complete documentation, CLI tooling, built-in security, and a production-friendly modular backend structure.
 
 hero:
   name: "lapeeh Framework"

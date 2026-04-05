@@ -8,9 +8,23 @@ const pkg = JSON.parse(
   readFileSync(resolve(__dirname, "../package.json"), "utf-8")
 );
 const version = pkg.version;
+const siteUrl = "https://lapeeh.vercel.app";
+const defaultDescription =
+  "Lapeeh adalah framework API Node.js berbasis Express dan TypeScript dengan dokumentasi lengkap, CLI generator, struktur modular, keamanan bawaan, dan panduan deployment.";
+
+function buildCanonicalPath(relativePath: string) {
+  const cleanPath = relativePath
+    .replace(/(^|\/)index\.md$/, "$1")
+    .replace(/\.md$/, "")
+    .replace(/\/+/g, "/");
+
+  if (!cleanPath || cleanPath === "index") return `${siteUrl}/`;
+  return `${siteUrl}/${cleanPath}`.replace(/\/+$/, "");
+}
 
 export default defineConfig({
   title: "Lapeeh Framework",
+  description: defaultDescription,
   // Shared properties
   cleanUrls: true,
   ignoreDeadLinks: true,
@@ -26,7 +40,33 @@ export default defineConfig({
     },
   },
   sitemap: {
-    hostname: "https://lapeeh.vercel.app",
+    hostname: siteUrl,
+  },
+  transformHead({ pageData }) {
+    const title = pageData.frontmatter.title
+      ? `${pageData.frontmatter.title} | Lapeeh Framework`
+      : pageData.title
+        ? `${pageData.title} | Lapeeh Framework`
+        : "Lapeeh Framework";
+    const description =
+      pageData.frontmatter.description ||
+      pageData.description ||
+      defaultDescription;
+    const canonical = buildCanonicalPath(pageData.relativePath);
+    const locale = pageData.relativePath.startsWith("en/") ? "en_US" : "id_ID";
+    const alternateLocale = locale === "id_ID" ? "en_US" : "id_ID";
+
+    return [
+      ["link", { rel: "canonical", href: canonical }],
+      ["meta", { name: "description", content: description }],
+      ["meta", { property: "og:title", content: title }],
+      ["meta", { property: "og:description", content: description }],
+      ["meta", { property: "og:url", content: canonical }],
+      ["meta", { property: "og:locale", content: locale }],
+      ["meta", { property: "og:locale:alternate", content: alternateLocale }],
+      ["meta", { name: "twitter:title", content: title }],
+      ["meta", { name: "twitter:description", content: description }],
+    ];
   },
 
   head: [
@@ -58,7 +98,7 @@ export default defineConfig({
       {
         name: "keywords",
         content:
-          "Lapeeh Framework, Node.js, Express, TypeScript, Backend, API, Boilerplate, Prisma, Javascript, Framework Indonesia",
+          "Lapeeh Framework, Node.js framework, Express TypeScript framework, backend framework, REST API boilerplate, API documentation, framework Indonesia, Express API starter",
       },
     ],
     ["meta", { name: "author", content: "robyajo" }],
@@ -70,7 +110,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:image",
-        content: "https://lapeeh.vercel.app/ogimage.png",
+        content: `${siteUrl}/ogimage.png`,
       },
     ],
     // Twitter
@@ -79,7 +119,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image",
-        content: "https://lapeeh.vercel.app/ogimage.png",
+        content: `${siteUrl}/ogimage.png`,
       },
     ],
   ],
@@ -90,10 +130,11 @@ export default defineConfig({
       label: "Indonesia",
       lang: "id-ID",
       description:
-        "Framework API Express yang siap pakai, cepat, dan terstandarisasi.",
+        "Dokumentasi resmi framework API Node.js berbasis Express dan TypeScript untuk membangun backend yang cepat, aman, dan terstandarisasi.",
       themeConfig: {
         nav: [
           { text: "Beranda", link: "/" },
+          { text: "Dokumentasi", link: "/docs/" },
           { text: "Panduan", link: "/docs/getting-started" },
           { text: "Blog", link: "/blog/" },
           { text: "Referensi", link: "/docs/packages" },
@@ -109,6 +150,7 @@ export default defineConfig({
           {
             text: "Pengenalan",
             items: [
+              { text: "Ringkasan Dokumentasi", link: "/docs/" },
               { text: "Apa itu lapeeh?", link: "/docs/introduction" },
               { text: "Fitur Utama", link: "/docs/features" },
               { text: "Arsitektur", link: "/docs/architecture-guide" },
@@ -187,10 +229,11 @@ export default defineConfig({
       lang: "en-US",
       link: "/en/",
       description:
-        "Ready-to-use, fast, and standardized Express API Framework.",
+        "Official documentation for a Node.js API framework built with Express and TypeScript for fast, secure, and standardized backend development.",
       themeConfig: {
         nav: [
           { text: "Home", link: "/en/" },
+          { text: "Documentation", link: "/en/docs/" },
           { text: "Guide", link: "/en/docs/getting-started" },
           { text: "Blog", link: "/en/blog/" },
           { text: "Reference", link: "/en/docs/packages" },
@@ -206,6 +249,7 @@ export default defineConfig({
           {
             text: "Introduction",
             items: [
+              { text: "Documentation Overview", link: "/en/docs/" },
               { text: "What is lapeeh?", link: "/en/docs/introduction" },
               { text: "Key Features", link: "/en/docs/features" },
               { text: "Architecture", link: "/en/docs/architecture-guide" },
